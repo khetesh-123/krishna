@@ -13,6 +13,7 @@ const KumbhNavBar = () => {
             <ul>
                 <li><Link to={'/KumbhPage'}>Home</Link></li>
                 <li><Link to={''}>About Kumbh</Link></li>
+                <li><Link to="/Map">Map</Link></li>
                 <li><Link to={'/HeritEdgeDiary'}>Herit Diary</Link></li>
                 <li><Link to={'/VolunteerRegistration'}>Register Volunteer</Link></li>
             </ul>

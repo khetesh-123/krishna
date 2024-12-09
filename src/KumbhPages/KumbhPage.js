@@ -7,6 +7,7 @@ import BatchingDate from "./BatchingDate";
 import PlanPri from "./PlanPri";
 import MajesticPage from "./MajesticPage";
 import ARVRPage from "../Components/ARVRPage";
+import Gallery from "./Gallery";
 
 const KumbhPage = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -68,6 +69,7 @@ const KumbhPage = () => {
       <PlanPri />
       <BatchingDate />
       <MajesticPage />
+      <Gallery />
       <ARVRPage />
       <Footer />
     </div>

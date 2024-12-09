@@ -24,9 +24,6 @@ const Footer = () => {
               <h3 className="circle"> </h3> <Link to="/Feedback">Feedback</Link>
             </p>
             <p>
-              <h3 className="circle"> </h3> <Link to="/Map">Map</Link>
-            </p>
-            <p>
               <h3 className="circle"> </h3> <Link to="/About">Contact</Link>
             </p>
             <p>

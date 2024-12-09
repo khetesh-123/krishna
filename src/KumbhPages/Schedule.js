@@ -6,8 +6,10 @@ import ramkund from "../Images/nashik.jpg";
 import grape from "../Images/grape_embassy.jpg";
 import swami from "../Images/swami_narayan.png";
 import kapaleshwar from "../Images/kapaleshwar.jpg";
+import { useNavigate } from "react-router-dom";
 
 const Schedule = () => {
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -79,10 +81,6 @@ const Schedule = () => {
     },
   ];
 
-  const handleDirections = (locationName) => {
-    console.log(`Getting directions to ${locationName}`);
-  };
-
   // Get the name of the current month
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
 
@@ -137,7 +135,7 @@ const Schedule = () => {
               </div>
               <button
                 className="directions-button"
-                onClick={() => handleDirections(location.name)}
+                onClick={() => navigate('/Map')}
               >
                 Directions
               </button>
