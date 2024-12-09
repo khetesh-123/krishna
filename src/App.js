@@ -27,7 +27,11 @@ import GameSelection from "./Components/GameSelection";
 import WordSearch from "./Components/WordSearch";
 import CandyCrush from "./Components/CandyCrush";
 import Map from "./Map";
-import Modal from "./Modal"; // Import the modal component
+import Modal from "./Modal";
+import PlanPri from "./KumbhPages/PlanPri";
+
+
+
 
 const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -86,6 +90,7 @@ const App = () => {
         <Route path="/WordSearch" Component={WordSearch} />
         <Route path="/CandyCrush" Component={CandyCrush} />
         <Route path="/Map" Component={Map} />
+        <Route path="/PlanPri" Component={PlanPri} />
       </Routes>
 
       {/* Modal component */}

@@ -5,9 +5,11 @@ import Footer from "./Footer";
 import flight from './Images/flight.jpg'
 import train from './Images/train.jpg'
 import bus from './Images/bus.jpg'
+import { useNavigate } from "react-router-dom";
 
 
 const Destination = () => {
+  const navigate = useNavigate();
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
 
@@ -29,8 +31,10 @@ const Destination = () => {
     },
   ];
 
-  const handleSearch = (type) => {
-    console.log(`Searching for ${type} from ${fromLocation} to ${toLocation}`);
+  const handleSearch = () => {
+    // navigate('https://www.irctc.co.in');
+    window.location.href = 'https://www.ixigo.com'
+    // console.log(`Searching for ${type} from ${fromLocation} to ${toLocation}`);
   };
 
   return (
@@ -69,7 +73,7 @@ const Destination = () => {
               </div>
               <h3>{option.type}</h3>
               <button
-                onClick={() => handleSearch(option.type)}
+                onClick={() => handleSearch()}
                 className="search-button"
               >
                 {option.buttonText}
