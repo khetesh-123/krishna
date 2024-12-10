@@ -5,11 +5,9 @@ import Footer from "./Footer";
 import flight from './Images/flight.jpg'
 import train from './Images/train.jpg'
 import bus from './Images/bus.jpg'
-import { useNavigate } from "react-router-dom";
 
 
 const Destination = () => {
-  const navigate = useNavigate();
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
 

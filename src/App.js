@@ -29,6 +29,7 @@ import CandyCrush from "./Components/CandyCrush";
 import Map from "./Map";
 import Modal from "./Modal";
 import PlanPri from "./KumbhPages/PlanPri";
+import Gallery from "./KumbhPages/Gallery";
 
 
 
@@ -91,6 +92,7 @@ const App = () => {
         <Route path="/CandyCrush" Component={CandyCrush} />
         <Route path="/Map" Component={Map} />
         <Route path="/PlanPri" Component={PlanPri} />
+        <Route path="/Gallery" Component={Gallery} />
       </Routes>
 
       {/* Modal component */}

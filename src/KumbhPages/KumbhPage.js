@@ -69,7 +69,7 @@ const KumbhPage = () => {
       <PlanPri />
       <BatchingDate />
       <MajesticPage />
-      <Gallery />
+      {/* <Gallery /> */}
       <ARVRPage />
       <Footer />
     </div>

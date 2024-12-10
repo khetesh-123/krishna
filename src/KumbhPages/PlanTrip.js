@@ -7,6 +7,27 @@ import axios from "axios";
 
 axios.defaults.withCredentials = true;
 
+const places = [
+  {
+    id: 1,
+    name: "Trimbakeshwar Temple",
+    category: "historical",
+    budget: "normal",
+  },
+  { id: 2, name: "Sula Vineyards", category: "food", budget: "luxury" },
+  {
+    id: 3,
+    name: "Pandavleni Caves",
+    category: "historical",
+    budget: "economy",
+  },
+  { id: 4, name: "Ramshej Fort", category: "adventure", budget: "economy" },
+  { id: 5, name: "Coin Museum", category: "artCulture", budget: "normal" },
+  { id: 6, name: "Gargoti Museum", category: "artCulture", budget: "normal" },
+  { id: 7, name: "Gangapur Dam", category: "nature", budget: "economy" },
+  { id: 8, name: "York Winery", category: "food", budget: "luxury" },
+];
+
 const PlanTrip = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
@@ -28,13 +49,12 @@ const PlanTrip = () => {
     companion: "",
     budget: "",
   });
+  const [filteredPlaces, setFilteredPlaces] = useState([]);
 
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        await axios.get(
-          "http://localhost:5000/api/check-auth"
-        );
+        await axios.get("http://localhost:5000/api/check-auth");
         setIsAuthenticated(true);
       } catch (error) {
         console.error("Authentication check failed:", error);
@@ -43,6 +63,20 @@ const PlanTrip = () => {
     };
     checkAuth();
   }, [navigate]);
+
+  useEffect(() => {
+    filterPlaces();
+  }, [formData.interests, formData.budget]);
+
+  const filterPlaces = () => {
+    const filtered = places.filter((place) => {
+      const interestMatch = formData.interests[place.category] > 50;
+      const budgetMatch =
+        formData.budget === place.budget || formData.budget === "";
+      return interestMatch && budgetMatch;
+    });
+    setFilteredPlaces(filtered.slice(0, 4));
+  };
 
   const handleNext = () => {
     setCurrentStep((prev) => prev + 1);
@@ -62,10 +96,10 @@ const PlanTrip = () => {
 
   const handleFinalSubmit = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/plan-trip",
-        formData
-      );
+      const response = await axios.post("http://localhost:5000/api/plan-trip", {
+        ...formData,
+        suggestedPlaces: filteredPlaces,
+      });
       console.log("Trip plan saved:", response.data);
       navigate("/Schedule");
     } catch (error) {
@@ -205,7 +239,7 @@ const PlanTrip = () => {
                       updateFormData("interests", newInterests);
                     }}
                   />
-                  <span>Interested</span>
+                  <span>{formData.interests[key]}%</span>
                 </div>
               ))}
             </div>
@@ -258,12 +292,35 @@ const PlanTrip = () => {
                 <button
                   key={type}
                   className={`budget-button ${
-                    formData.budget === type ? "active" : ""
+                    formData.budget === type.toLowerCase() ? "active" : ""
                   }`}
-                  onClick={() => updateFormData("budget", type)}
+                  onClick={() => updateFormData("budget", type.toLowerCase())}
                 >
                   {type}
                 </button>
+              ))}
+            </div>
+            <button className="next-button" onClick={handleNext}>
+              Next
+            </button>
+          </div>
+        );
+
+      case 7:
+        return (
+          <div className="form-step">
+            <div className="icon-title">
+              <span className="icon">🗺️</span>
+              <h3>Suggested Places</h3>
+            </div>
+            <p>Based on your preferences, here are some suggested places:</p>
+            <div className="suggested-places">
+              {filteredPlaces.map((place) => (
+                <div key={place.id} className="place-item">
+                  <h4>{place.name}</h4>
+                  <p>Category: {place.category}</p>
+                  <p>Budget: {place.budget}</p>
+                </div>
               ))}
             </div>
             <button className="next-button" onClick={handleFinalSubmit}>

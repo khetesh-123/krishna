@@ -86,6 +86,7 @@ const DiaryEntrySchema = new mongoose.Schema({
 
 const DiaryEntry = mongoose.model("DiaryEntry", DiaryEntrySchema);
 
+// Update the TripPlanSchema if needed
 const TripPlanSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   duration: Number,
@@ -103,6 +104,14 @@ const TripPlanSchema = new mongoose.Schema({
   },
   companion: String,
   budget: String,
+  suggestedPlaces: [
+    {
+      id: Number,
+      name: String,
+      category: String,
+      budget: String,
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
 });
 
@@ -302,7 +311,7 @@ app.post("/api/feedback", async (req, res) => {
   }
 });
 
-// Plan Trip Route
+// Update the Plan Trip Route
 app.post("/api/plan-trip", isAuthenticated, async (req, res) => {
   try {
     const userId = req.session.userId;
@@ -316,6 +325,7 @@ app.post("/api/plan-trip", isAuthenticated, async (req, res) => {
       interests,
       companion,
       budget,
+      suggestedPlaces,
     } = req.body;
 
     const newTripPlan = new TripPlan({
@@ -328,6 +338,7 @@ app.post("/api/plan-trip", isAuthenticated, async (req, res) => {
       interests,
       companion,
       budget,
+      suggestedPlaces,
     });
 
     await newTripPlan.save();
@@ -338,6 +349,23 @@ app.post("/api/plan-trip", isAuthenticated, async (req, res) => {
     });
   } catch (error) {
     console.error("Trip plan creation error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Add a new route to get the trip plan
+app.get("/api/trip-plan", isAuthenticated, async (req, res) => {
+  try {
+    const userId = req.session.userId;
+    const tripPlan = await TripPlan.findOne({ userId }).sort({ createdAt: -1 });
+
+    if (!tripPlan) {
+      return res.status(404).json({ message: "No trip plan found" });
+    }
+
+    res.status(200).json(tripPlan);
+  } catch (error) {
+    console.error("Fetch trip plan error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });

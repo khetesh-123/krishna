@@ -2,19 +2,45 @@ import React, { useState, useEffect } from "react";
 import "./Schedule.scss";
 import KumbhNavBar from "./KumbhNavBar";
 import Footer from "../Footer";
-import ramkund from "../Images/nashik.jpg";
-import grape from "../Images/grape_embassy.jpg";
-import swami from "../Images/swami_narayan.png";
-import kapaleshwar from "../Images/kapaleshwar.jpg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Schedule = () => {
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [dates, setDates] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [tripPlan, setTripPlan] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Function to get the start of the week (Sunday)
+  useEffect(() => {
+    const fetchTripPlan = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/trip-plan",
+          { withCredentials: true }
+        );
+        setTripPlan(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching trip plan:", error);
+        setError("Failed to fetch trip plan. Please try again later.");
+        setIsLoading(false);
+      }
+    };
+
+    fetchTripPlan();
+  }, []);
+
+  useEffect(() => {
+    if (tripPlan && tripPlan.startDate) {
+      const startDate = new Date(tripPlan.startDate);
+      setCurrentDate(startDate);
+      setSelectedDate(startDate.getDate());
+    }
+  }, [tripPlan]);
+
   const getStartOfWeek = (date) => {
     const day = date.getDay();
     const startOfWeek = new Date(date);
@@ -23,7 +49,6 @@ const Schedule = () => {
     return startOfWeek;
   };
 
-  // Function to generate week dates
   const generateWeekDates = (startOfWeek) => {
     const weekDates = [];
     for (let i = 0; i < 7; i++) {
@@ -39,50 +64,54 @@ const Schedule = () => {
     return weekDates;
   };
 
-  // Effect to update the dates whenever currentDate changes
   useEffect(() => {
     const startOfWeek = getStartOfWeek(currentDate);
     const weekDates = generateWeekDates(startOfWeek);
     setDates(weekDates);
-    setSelectedDate(new Date().getDate()); // Select current date by default
   }, [currentDate]);
 
-  // Handle navigation for next and previous week
   const handleNavigation = (direction) => {
     const newDate = new Date(currentDate);
-    newDate.setDate(currentDate.getDate() + direction * 7); // Move by a week
+    newDate.setDate(currentDate.getDate() + direction * 7);
     setCurrentDate(newDate);
   };
 
-  const locations = [
-    {
-      name: "RamKund",
-      time: "10:00 am to 12:00 pm",
-      image: ramkund,
-      day: 1,
-    },
-    {
-      name: "Grape Embassy",
-      time: "1:00 pm to 2:30 pm",
-      image: grape,
-      day: 1,
-    },
-    {
-      name: "Swami Narayan Mandir",
-      time: "3:00 pm to 5:30 pm",
-      image: swami,
-      day: 1,
-    },
-    {
-      name: "Kapaleshwar Mandir",
-      time: "6:00 pm to 7:30 pm",
-      image: kapaleshwar,
-      day: 1,
-    },
-  ];
-
-  // Get the name of the current month
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
+
+  if (isLoading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner"></div>
+        <p>Loading your trip plan...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p>{error}</p>
+        <Link to="/PlanTrip" className="retry-button">
+          Try creating a new trip plan
+        </Link>
+      </div>
+    );
+  }
+
+  if (
+    !tripPlan ||
+    !tripPlan.suggestedPlaces ||
+    tripPlan.suggestedPlaces.length === 0
+  ) {
+    return (
+      <div className="no-plan-container">
+        <p>No trip plan found or your plan is empty.</p>
+        <Link to="/PlanTrip" className="create-plan-button">
+          Create a new trip plan
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -123,19 +152,17 @@ const Schedule = () => {
         </div>
 
         <div className="locations-grid">
-          {locations.map((location, index) => (
+          {tripPlan.suggestedPlaces.map((place, index) => (
             <div key={index} className="location-card">
               <div className="location-info">
-                <div className="day-label">Day {location.day}</div>
-                <h3>{location.name}</h3>
-                <p>{location.time}</p>
-              </div>
-              <div className="location-image">
-                <img src={location.image} alt={location.name} />
+                <div className="day-label">Day {index + 1}</div>
+                <h3>{place.name}</h3>
+                <p>Category: {place.category}</p>
+                <p>Budget: {place.budget}</p>
               </div>
               <button
                 className="directions-button"
-                onClick={() => navigate('/Map')}
+                onClick={() => navigate("/Map")}
               >
                 Directions
               </button>
