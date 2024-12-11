@@ -11,12 +11,12 @@ import { BiRightArrow } from "react-icons/bi";
 const ExplorePage = () => {
   return (
     <>
-      <DashboardNavBar />
+      {/* <DashboardNavBar /> */}
       <div className="ExploreContainer">
         <div className="LandingImage">
           <img src={KumbhImage} alt="Kumbh" />
           <div className="LandingText">
-            <h1>कुम्भ २०२७</h1>
+            <h1>कुंभ २०२७</h1>
             <p>यह पर्व नहीं, एक यात्रा है</p>
           </div>
           <div className="StartBtn">

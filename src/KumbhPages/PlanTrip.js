@@ -8,25 +8,62 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 const places = [
-  {
-    id: 1,
-    name: "Trimbakeshwar Temple",
-    category: "historical",
-    budget: "normal",
-  },
-  { id: 2, name: "Sula Vineyards", category: "food", budget: "luxury" },
-  {
-    id: 3,
-    name: "Pandavleni Caves",
-    category: "historical",
-    budget: "economy",
-  },
-  { id: 4, name: "Ramshej Fort", category: "adventure", budget: "economy" },
-  { id: 5, name: "Coin Museum", category: "artCulture", budget: "normal" },
-  { id: 6, name: "Gargoti Museum", category: "artCulture", budget: "normal" },
-  { id: 7, name: "Gangapur Dam", category: "nature", budget: "economy" },
-  { id: 8, name: "York Winery", category: "food", budget: "luxury" },
+  { id: 1, name: "Trimbakeshwar Temple", category: "historical", budget: "normal", address: "Trimbak, Nashik, Maharashtra 422212" },
+  { id: 2, name: "Pandavleni Caves", category: "historical", budget: "economy", address: "Trimbak Rd, Nashik, Maharashtra 422212" },
+  { id: 3, name: "Coin Museum", category: "artCulture", budget: "normal", address: "Govardhan, Nashik, Maharashtra 422001" },
+  { id: 4, name: "Ramshej Fort", category: "historical", budget: "economy", address: "Near Trimbak, Nashik, Maharashtra 422212" },
+  { id: 5, name: "Kalaram Sansthan Mandir", category: "historical", budget: "normal", address: "Panchavati, Nashik, Maharashtra 422003" },
+  { id: 6, name: "Shree Saptashrungi", category: "historical", budget: "normal", address: "Saptashrungi Gad, Vani, Nashik, Maharashtra 422303" },
+  { id: 7, name: "Someshwar Waterfall & Temple", category: "historical", budget: "normal", address: "Someshwar, Nashik, Maharashtra 422212" },
+  { id: 8, name: "Gorakhgad Fort", category: "historical", budget: "economy", address: "Igatpuri, Nashik, Maharashtra" },
+  { id: 9, name: "Nashik Fort (Killa)", category: "historical", budget: "economy", address: "Nashik City, Maharashtra" },
+  { id: 10, name: "Muktidham Temple", category: "historical", budget: "normal", address: "Muktidham, Nashik, Maharashtra 422001" },
+  
+  { id: 11, name: "Saptashrungi Nivasini Temple", category: "artCulture", budget: "normal", address: "Saptashrungi Gad, Nashik, Maharashtra 422303" },
+  { id: 12, name: "Gargoti Museum", category: "artCulture", budget: "normal", address: "Sinnar, Nashik, Maharashtra 422102" },
+  { id: 13, name: "Nashik Kala Nirman", category: "artCulture", budget: "normal", address: "Nashik City, Maharashtra" },
+  { id: 14, name: "Anjneri Hill", category: "artCulture", budget: "economy", address: "Anjneri, Nashik, Maharashtra 422002" },
+  { id: 15, name: "Vivekanand Statue", category: "artCulture", budget: "normal", address: "Panchavati, Nashik, Maharashtra" },
+  { id: 16, name: "Nashik Tribal Museum", category: "artCulture", budget: "economy", address: "Pandit Nehru Park, Nashik, Maharashtra 422002" },
+  { id: 17, name: "Kumbh Mela Museum", category: "artCulture", budget: "normal", address: "Nashik, Maharashtra 422001" },
+  { id: 18, name: "Trimbak Saptashrungi", category: "artCulture", budget: "economy", address: "Trimbak, Nashik, Maharashtra" },
+  { id: 19, name: "Jain Mandir", category: "artCulture", budget: "economy", address: "Near Railway Station, Nashik, Maharashtra" },
+  { id: 20, name: "Shree Yashwant Vithoba Mandir", category: "artCulture", budget: "normal", address: "Nashik, Maharashtra" },
+  
+  { id: 21, name: "Gangapur Dam", category: "nature", budget: "economy", address: "Gangapur, Nashik, Maharashtra 422222" },
+  { id: 22, name: "Nashik Garden", category: "nature", budget: "normal", address: "Nashik City, Maharashtra" },
+  { id: 23, name: "Vaitarna Dam", category: "nature", budget: "luxury", address: "Igatpuri, Nashik, Maharashtra" },
+  { id: 24, name: "Bhasker Nadi", category: "nature", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 25, name: "Dhamangaon Lake", category: "nature", budget: "economy", address: "Dhamangaon, Nashik, Maharashtra" },
+  { id: 26, name: "Panchavati Garden", category: "nature", budget: "normal", address: "Panchavati, Nashik, Maharashtra" },
+  { id: 27, name: "Kalaram Temple Garden", category: "nature", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 28, name: "Anjneri Hill & Waterfall", category: "nature", budget: "economy", address: "Anjneri, Nashik, Maharashtra 422002" },
+  { id: 29, name: "Saptashrungi Waterfall", category: "nature", budget: "economy", address: "Saptashrungi, Nashik, Maharashtra" },
+  { id: 30, name: "Trimbakeshwar Temple Garden", category: "nature", budget: "normal", address: "Trimbak, Nashik, Maharashtra 422212" },
+  
+  { id: 31, name: "Ramshej Fort", category: "adventure", budget: "economy", address: "Ramshej, Nashik, Maharashtra 422212" },
+  { id: 32, name: "Harishchandragad Fort", category: "adventure", budget: "economy", address: "Near Igatpuri, Nashik, Maharashtra" },
+  { id: 33, name: "Bhandardara Lake", category: "adventure", budget: "luxury", address: "Bhandardara, Nashik, Maharashtra" },
+  { id: 34, name: "Kalsubai Peak", category: "adventure", budget: "luxury", address: "Kalsubai, Nashik, Maharashtra" },
+  { id: 35, name: "Brahmagiri Hill Trek", category: "adventure", budget: "economy", address: "Trimbak, Nashik, Maharashtra" },
+  { id: 36, name: "Vajreshwari Hot Springs", category: "adventure", budget: "normal", address: "Vajreshwari, Nashik, Maharashtra" },
+  { id: 37, name: "Nashik Trekking Trails", category: "adventure", budget: "economy", address: "Nashik City, Maharashtra" },
+  { id: 38, name: "Wilson Hills", category: "adventure", budget: "luxury", address: "Nashik, Maharashtra" },
+  { id: 39, name: "Harishchandragad Waterfalls", category: "adventure", budget: "economy", address: "Igatpuri, Nashik, Maharashtra" },
+  { id: 40, name: "Malshej Ghat", category: "adventure", budget: "luxury", address: "Malshej Ghat, Nashik, Maharashtra" },
+  
+  { id: 41, name: "Sula Vineyards", category: "shopping", budget: "luxury", address: "Sula Vineyards, Nashik, Maharashtra 422003" },
+  { id: 42, name: "Nashik Road Market", category: "shopping", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 43, name: "Pandit Jawaharlal Nehru Market", category: "shopping", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 44, name: "Nashik Central Mall", category: "shopping", budget: "normal", address: "Nashik, Maharashtra" },
+  { id: 45, name: "Sula Fest Market", category: "shopping", budget: "luxury", address: "Sula Vineyards, Nashik, Maharashtra 422003" },
+  { id: 46, name: "Market Yard", category: "shopping", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 47, name: "Khanapur Market", category: "shopping", budget: "economy", address: "Khanapur, Nashik, Maharashtra" },
+  { id: 48, name: "Shree Laxmi Market", category: "shopping", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 49, name: "Shivaji Market", category: "shopping", budget: "economy", address: "Nashik, Maharashtra" },
+  { id: 50, name: "Godavari Market", category: "shopping", budget: "economy", address: "Nashik, Maharashtra" }
 ];
+
 
 const PlanTrip = () => {
   const navigate = useNavigate();

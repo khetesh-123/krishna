@@ -76,6 +76,13 @@ const Schedule = () => {
     setCurrentDate(newDate);
   };
 
+  const handleDirections = (address) => {
+    if (address) {
+      const googleMapsURL = `https://www.google.com/maps?q=${encodeURIComponent(address)}`;
+      window.open(googleMapsURL, "_blank"); // Open Google Maps in a new tab
+    }
+  };
+
   const monthName = currentDate.toLocaleDateString("en-US", { month: "long" });
 
   if (isLoading) {
@@ -162,7 +169,7 @@ const Schedule = () => {
               </div>
               <button
                 className="directions-button"
-                onClick={() => navigate("/Map")}
+                onClick={() => handleDirections(place.address)} // Pass address to the function
               >
                 Directions
               </button>

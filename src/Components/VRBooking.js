@@ -8,13 +8,19 @@ const VRBooking = () => {
   const [vrBooth, setVrBooth] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const [submittedDetails, setSubmittedDetails] = useState(null);
 
   const handleBoothChange = (e) => setVrBooth(e.target.value);
   const handleDateChange = (e) => setSelectedDate(e.target.value);
   const handleTimeChange = (e) => setSelectedTime(e.target.value);
 
   const handleSubmit = () => {
-    console.log("Booking details:", { vrBooth, selectedDate, selectedTime });
+    setIsPopupVisible(true);
+    setTimeout(() => {
+      setIsPopupVisible(false);
+      setSubmittedDetails({ vrBooth, selectedDate, selectedTime });
+    }, 2000); // Hide popup after 2 seconds
   };
 
   return (
@@ -27,7 +33,7 @@ const VRBooking = () => {
               <Headset className="vr-icon" size={32} />
               <h1>Virtual Tour Booking</h1>
             </div>
-            <p>Book your Virtual tour in few steps!</p>
+            <p>Book your Virtual tour in a few steps!</p>
           </div>
 
           <div className="booking-form">
@@ -80,6 +86,37 @@ const VRBooking = () => {
               Done
             </button>
           </div>
+
+          {isPopupVisible && (
+            <div className="popup">
+              <div className="popup-content">
+                <span className="popup-icon">✔️</span>
+                <p>Booking Confirmed!</p>
+              </div>
+            </div>
+          )}
+
+          {submittedDetails && (
+            <div className="confirmation-table">
+              <h2>Booking Details:</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>VR Booth</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{submittedDetails.vrBooth}</td>
+                    <td>{submittedDetails.selectedDate}</td>
+                    <td>{submittedDetails.selectedTime}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

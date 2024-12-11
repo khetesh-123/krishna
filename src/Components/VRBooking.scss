@@ -132,3 +132,58 @@
     }
   }
 }
+
+.popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  .popup-icon {
+    font-size: 1.5rem;
+    color: green;
+  }
+
+  p {
+    margin: 0;
+  }
+}
+
+.confirmation-table {
+  margin-top: 2rem;
+  text-align: center;
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #fff;
+    margin-top: 1rem;
+
+    th, td {
+      padding: 1rem;
+      text-align: center;
+      border: 1px solid #fff;
+    }
+
+    th {
+      background-color: #333;
+    }
+
+    td {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

@@ -15,6 +15,7 @@ const HeritEdgeDiary = () => {
   });
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -33,18 +34,20 @@ const HeritEdgeDiary = () => {
     checkAuth();
   }, []);
 
-  // Use useCallback to memoize fetchEntries so it's stable between renders
   const fetchEntries = useCallback(async () => {
     if (!user) return;
+    setLoading(true);
     try {
       const response = await axios.get(
         "http://localhost:5000/api/diary-entries",
         { withCredentials: true }
       );
       setEntries(response.data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching entries:", error);
       setError("Failed to fetch diary entries. Please try again later.");
+      setLoading(false);
     }
   }, [user]);
 
@@ -52,7 +55,7 @@ const HeritEdgeDiary = () => {
     if (user) {
       fetchEntries();
     }
-  }, [user, fetchEntries]); // Add fetchEntries to the dependency array
+  }, [user, fetchEntries]);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -85,6 +88,9 @@ const HeritEdgeDiary = () => {
     }
   };
 
+  const closeModal = () => setShowModal(false);
+  const openModal = () => setShowModal(true);
+
   if (!user) {
     return (
       <div className="heritage-diary">
@@ -105,30 +111,37 @@ const HeritEdgeDiary = () => {
         <h1>Heritage Diary</h1>
 
         {error && <p className="error-message">{error}</p>}
+        {loading ? (
+          <p>Loading entries...</p>
+        ) : (
+          <div className="diary-grid">
+            {entries.length > 0 ? (
+              entries.map((entry) => (
+                <div key={entry._id} className="diary-card">
+                  <div className="location">
+                    <MapPin size={20} />
+                    <span>{entry.location}</span>
+                  </div>
+                  <div className="image-container">
+                    <img src={entry.image} alt={entry.location} />
+                  </div>
+                  <div className="caption">{entry.caption}</div>
+                </div>
+              ))
+            ) : (
+              <p>No entries found. Add a new entry to get started.</p>
+            )}
 
-        <div className="diary-grid">
-          {entries.map((entry) => (
-            <div key={entry._id} className="diary-card">
-              <div className="location">
-                <MapPin size={20} />
-                <span>{entry.location}</span>
-              </div>
-              <div className="image-container">
-                <img src={entry.image} alt={entry.location} />
-              </div>
-              <div className="caption">{entry.caption}</div>
-            </div>
-          ))}
-
-          <button className="add-more-btn" onClick={() => setShowModal(true)}>
-            Add more
-          </button>
-        </div>
+            <button className="add-more-btn" onClick={openModal}>
+              Add more
+            </button>
+          </div>
+        )}
 
         {showModal && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <button className="close-btn" onClick={() => setShowModal(false)}>
+          <div className="modal-overlay" onClick={closeModal}>
+            <div className="modal" onClick={(e) => e.stopPropagation()}>
+              <button className="close-btn" onClick={closeModal}>
                 <X size={24} />
               </button>
 
@@ -191,7 +204,7 @@ const HeritEdgeDiary = () => {
         )}
       </main>
 
-      <Footer />
+      
     </div>
   );
 };

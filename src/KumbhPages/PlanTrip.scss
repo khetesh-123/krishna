@@ -3,7 +3,6 @@
   margin: 0 auto;
   padding: 4rem 2rem;
   font-family: "Poppins", sans-serif;
-  //   background-color: var(--background-color);
   color: var(--text-color);
 
   .header {
@@ -13,8 +12,7 @@
     h1 {
       font-size: 3rem;
       color: var(--black);
-      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
       font-style: italic;
       margin-bottom: 1rem;
       font-weight: 700;
@@ -27,8 +25,7 @@
       font-size: 2rem;
       font-weight: 500;
       color: var(--black);
-      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-        "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+      font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
       font-style: italic;
       @media (max-width: 768px) {
         font-size: 1.75rem;
@@ -39,7 +36,6 @@
   .form-container {
     max-width: 550px;
     margin: 0 auto;
-    // background: var(--black);
     border-radius: 20px;
     border: 1px solid var(--black);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);

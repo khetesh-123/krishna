@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import "./ExplorePages.scss";
 import { useNavigate } from "react-router-dom"; // For navigation
 import DashboardNavBar from "../NavBar/DashboardNavBar";
@@ -12,6 +12,23 @@ import mangitungi from "../Images/mangitungi.jpeg.jpg";
 
 const ExplorePages = () => {
   const navigate = useNavigate(); // For navigation
+  const scrollRef = useRef(null);
+
+  const handleScroll = (e) => {
+    // Prevent vertical scrolling
+    e.preventDefault();
+    // Slide left or right depending on scroll direction
+    scrollRef.current.scrollLeft += e.deltaY;
+  };
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    scrollContainer.addEventListener("wheel", handleScroll);
+
+    return () => {
+      scrollContainer.removeEventListener("wheel", handleScroll);
+    };
+  }, []);
 
   const handleClick = (category) => {
     console.log(`Clicked on ${category}`);
@@ -22,9 +39,10 @@ const ExplorePages = () => {
   return (
     <div className="explore-container">
       <DashboardNavBar />
-      <div className="explore-scroll">
+      <div className="explore-scroll" ref={scrollRef}>
+        {/* Individual Cards */}
         <div
-          className="explore-card other-places"
+          className="explore-card"
           onClick={() => handleClick("otherPlace")}
         >
           <img src={trampoline} alt="Other Places" />
@@ -34,7 +52,7 @@ const ExplorePages = () => {
         </div>
 
         <div
-          className="explore-card nearby-places"
+          className="explore-card"
           onClick={() => handleClick("NearFoodPlace")}
         >
           <img src={sayantara} alt="Nearby Food Places" />
@@ -44,7 +62,7 @@ const ExplorePages = () => {
         </div>
 
         <div
-          className="explore-card temples"
+          className="explore-card"
           onClick={() => handleClick("TemplePage")}
         >
           <img src={kalaram} alt="Temples" />
@@ -54,7 +72,7 @@ const ExplorePages = () => {
         </div>
 
         <div
-          className="explore-card historical-places"
+          className="explore-card"
           onClick={() => handleClick("HistoricalPlace")}
         >
           <img src={pandavleni} alt="Historical Places" />
@@ -64,30 +82,12 @@ const ExplorePages = () => {
         </div>
 
         <div
-          className="explore-card trekking-points"
+          className="explore-card"
           onClick={() => handleClick("Trekking")}
         >
           <img src={mangitungi} alt="Trekking Points" />
           <div className="card-overlay">
             <h2>Trekking Points</h2>
-          </div>
-        </div>
-        <div
-          className="explore-card trekking-points"
-          onClick={() => handleClick("Trekking")}
-        >
-          <img src={mangitungi} alt="MisalSpot" />
-          <div className="card-overlay">
-            <h2>Misal Spot</h2>
-          </div>
-        </div>
-        <div
-          className="explore-card trekking-points"
-          onClick={() => handleClick("HotelRestorant")}
-        >
-          <img src={mangitungi} alt="HotelRestorant" />
-          <div className="card-overlay">
-            <h2>Hotel & Restaurants</h2>
           </div>
         </div>
       </div>

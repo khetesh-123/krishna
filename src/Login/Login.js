@@ -74,7 +74,7 @@ const Login = () => {
         </div>
         <div className="ShowImage">
           <img src={Logo} alt="Nashik" />
-          <h3>The soulful blend of heritage, spirituality, and nature.</h3>
+          <h3><b>The soulful blend of heritage, spirituality, and nature.</b></h3>
         </div>
       </div>
     </div>

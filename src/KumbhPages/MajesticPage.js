@@ -1,10 +1,10 @@
 import React from "react";
 import "./MajesticPage.scss";
 import { Brain } from "lucide-react";
-import cctv from '../Images/Group1/CCTV.jpg.png'
-import Container from '../Images/Group1/Container.png'
-import techslide2 from '../Images/Group1/tech-slide2.png.png'
-import techslide3 from '../Images/Group1/tech-slide3.png.png'
+import cctv from '../Images/Group1/camera.webp'
+import Container from '../Images/Group1/rally.webp'
+import techslide2 from '../Images/Group1/drone.avif'
+import techslide3 from '../Images/Group1/police.webp'
 
 function MajesticPage() {
   return (

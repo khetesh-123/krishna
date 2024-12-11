@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./KumbhPage.scss";
 import KumbhNavBar from "./KumbhNavBar";
 import Footer from "../Footer";
-import video from "../Images/v1.mp4";
+import video from "../Images/01.mp4";
 import BatchingDate from "./BatchingDate";
 import PlanPri from "./PlanPri";
 import MajesticPage from "./MajesticPage";
@@ -31,7 +31,7 @@ const KumbhPage = () => {
         </video>
 
         <div className={`content-overlay ${isPlaying ? "hidden" : ""}`}>
-          <h1>कुम्भ २०२७</h1>
+          <h1>कुंभ २०२७</h1>
           <p>Welcome to the 2027 Maha Kumbh Mela,</p>
           <p>world's largest congregation of people!</p>
           <p>
@@ -41,7 +41,7 @@ const KumbhPage = () => {
 
           <div className="countdown">
             <div className="days">
-              <span>951 days to go</span>
+              <span>914 days to go</span>
             </div>
             <div className="dates">
               <span>13 January - 26 February</span>

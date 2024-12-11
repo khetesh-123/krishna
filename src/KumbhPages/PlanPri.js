@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import "./PlanPri.css";
 import { Luggage, LuggageIcon, LocateIcon, MapPin } from "lucide-react";
-import planImg from "../Images/planImg.png";
+import planImg from "../Images/collage.webp";
 
 const PlanPri = () => {
   const planningOptions = [
