@@ -37,7 +37,7 @@ const FoodCard = ({ name, address, image, onClick }) => {
 const DetailsPanel = ({ details, onClose }) => {
   if (!details) return null;
 
-  const { name, address, image } = details;
+  const { name, address, image, description, reviews } = details;
 
   return (
     <div className="details-panel">
@@ -46,7 +46,16 @@ const DetailsPanel = ({ details, onClose }) => {
       </button>
       <h2>{name}</h2>
       <img src={image} alt={name} />
-      <p>{address}</p>
+      <p>{description}</p>
+      <p><strong>Address:</strong> {address}</p>
+      <div className="reviews">
+        <h3>Reviews:</h3>
+        <ul>
+          {reviews.map((review, index) => (
+            <li key={index}>{review}</li>
+          ))}
+        </ul>
+      </div>
       <div className="directions">
         <a
           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
@@ -71,36 +80,66 @@ const NearFoodPlace = () => {
       address:
         "Shop No.5, Deshpande Building, Shop No.113, Bhadrakali Fruit Market, 1419, Bhadrakali Rd, Bhadrakali, Koknipura, Nashik",
       image: sayantaraImg,
+      description: "A popular spot for traditional Maharashtrian thalis.",
+      reviews: [
+        "Delicious food and great ambiance!",
+        "Authentic flavors, a must-visit place.",
+      ],
     },
     {
       name: "Budha Halwai",
       address:
         "Behind Bhadrakali Mandir Road, Naikwadi Pura, Tivandha chowk, Nashik",
       image: budhaHalwaiImg,
+      description: "Famous for its sweets and savory snacks.",
+      reviews: [
+        "Best pedas in town!",
+        "The quality has been consistently great for years."
+      ],
     },
     {
       name: "Shoukin Bhel",
       address:
         "Shop no. 3, Nikunj apt, near, Vidya Vikas Cir, Yashogandha Society, Patil Colony, Canada Corner, Nashik",
       image: shoukinBhelImg,
+      description: "A go-to place for street-style bhel puri and snacks.",
+      reviews: [
+        "Perfect balance of flavors!",
+        "Highly recommended for bhel lovers."
+      ],
     },
     {
       name: "Nadan Thali",
       address:
         "Laxmi Vijay Commercial complex Jatra Hotel Road, Aurangabad Rd, Nandur Naka, Nashik",
       image: nadanThaliImg,
+      description: "Experience authentic thalis at their best.",
+      reviews: [
+        "Affordable and tasty meals.",
+        "Feels like home-cooked food."
+      ],
     },
     {
       name: "Shagun Thali",
       address:
         "Seawood Park, Gangapur Rd, beside Linen Club, nr. Khatib Dairy, Old Gangapur Naka, Shreerang Nagar, Nashik",
       image: shagunThaliImg,
+      description: "Perfect for family dining with traditional dishes.",
+      reviews: [
+        "Spacious seating and excellent food.",
+        "Highly recommend their special thali."
+      ],
     },
     {
       name: "Samarth Juice Centre",
       address:
         "Pethe High School Compound, Sarkar Wada, Raviwar Karanja, Panchavati, Nashik",
       image: samarthJuiceImg,
+      description: "Refreshing juices and quick snacks.",
+      reviews: [
+        "The best juice center in the area!",
+        "Fresh and healthy drinks."
+      ],
     },
   ];
 

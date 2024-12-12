@@ -8,7 +8,7 @@ const Footer = () => {
   const CurrentYear = date.getFullYear();
   return (
     <>
-      <Robot />
+      {/* <Robot /> */}
       <footer className="footer">
         <div className="footer__container">
           <div className="Footer1">&copy; {CurrentYear} HeritEdge</div>

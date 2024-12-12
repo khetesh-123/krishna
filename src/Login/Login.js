@@ -23,7 +23,7 @@ const Login = () => {
       );
 
       alert(response.data.message);
-      navigate("/KumbhPage");
+      navigate("/VRBooking");
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred during login");
     }

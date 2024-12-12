@@ -14,7 +14,7 @@ import OtherPlace from "./Components/otherPlace";
 import HotelRestorant from "./Components/HotelRestorant";
 import KumbhPage from "./KumbhPages/KumbhPage";
 import UserProfile from "./UserProfile";
-import HeritEdgeDiary from "./Components/HeritEdgeDiary";
+ import HeritEdgeDiary from "./Components/HeritEdgeDiary";
 import Feedback from "./Feedback";
 import VolunteerRegistration from "./KumbhPages/VolunteerRegistration";
 import Destination from "./Destination";
@@ -46,7 +46,7 @@ const App = () => {
     // Set interval to show the modal after 45 minutes or 1.5 hours
     const interval = setInterval(() => {
       setModalOpen(true);
-    }, 45 * 60 * 1000); // 45 minutes
+    }, 1 * 60 * 1000); // 45 minutes
 
     // You can set another interval for 1.5 hours like this:
     // const interval1_5H = setInterval(() => {
@@ -84,10 +84,11 @@ const App = () => {
         <Route path="/" Component={ExplorePage} />
         <Route path="/Login" Component={Login} />
         <Route path="/Register" Component={Register} />
+        <Route path="/Register" Component={Register} />
         <Route path="/About" Component={About} />
         <Route path="/FAQ" Component={FAQ} />
         <Route path="/VRBooking" Component={VRBooking} />
-        <Route path="/GameSelection" Component={GameSelection} />
+        {/* <Route path="/GameSelection" Component={GameSelection} /> */}
         <Route path="/WordSearch" Component={WordSearch} />
         <Route path="/CandyCrush" Component={CandyCrush} />
         <Route path="/Map" Component={Map} />

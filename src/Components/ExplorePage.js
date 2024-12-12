@@ -20,7 +20,7 @@ const ExplorePage = () => {
             <p>यह पर्व नहीं, एक यात्रा है</p>
           </div>
           <div className="StartBtn">
-            <Link to={"/Login"}>Explore HeritEdge <BiRightArrow className="icons"/></Link>
+            <Link to={"/Kumbhpage"}>Explore HeritEdge <BiRightArrow className="icons"/></Link>
           </div>
         </div>
         {/* <div className="ExplorePage">

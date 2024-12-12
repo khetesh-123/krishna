@@ -4,6 +4,7 @@ import Footer from "../Footer";
 import DashboardNavBar from "../NavBar/DashboardNavBar";
 import { MapPin, X } from "lucide-react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for redirect
 
 const HeritEdgeDiary = () => {
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,8 @@ const HeritEdgeDiary = () => {
   const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showLoginPopup, setShowLoginPopup] = useState(false); // State for showing login popup
+  const navigate = useNavigate(); // Hook to handle redirects
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -28,6 +31,7 @@ const HeritEdgeDiary = () => {
       } catch (error) {
         console.error("Authentication error:", error);
         setError("Please log in to view and add diary entries.");
+        setShowLoginPopup(true); // Show login popup when authentication fails
       }
     };
 
@@ -91,6 +95,12 @@ const HeritEdgeDiary = () => {
   const closeModal = () => setShowModal(false);
   const openModal = () => setShowModal(true);
 
+  // Handle login popup
+  const handleLoginRedirect = () => {
+    navigate("/Login"); // Redirect to login page
+    setShowLoginPopup(false); // Close the popup
+  };
+
   if (!user) {
     return (
       <div className="heritage-diary">
@@ -100,6 +110,16 @@ const HeritEdgeDiary = () => {
           <p>{error || "Please log in to view and add diary entries."}</p>
         </main>
         <Footer />
+        
+        {/* Login popup */}
+        {showLoginPopup && (
+          <div className="login-popup-overlay" onClick={() => setShowLoginPopup(false)}>
+            <div className="login-popup" onClick={(e) => e.stopPropagation()}>
+              <h2>You need to log in to access this page</h2>
+              <button onClick={handleLoginRedirect}>Go to Login</button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
@@ -203,8 +223,7 @@ const HeritEdgeDiary = () => {
           </div>
         )}
       </main>
-
-      
+      <Footer />
     </div>
   );
 };

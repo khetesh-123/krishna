@@ -1,16 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ARVRPage.scss";
 import { useNavigate } from "react-router-dom";
 import apkFile from "../Images/ARmandir3.apk";
 
 // Importing specific images for each section
-import gamesImage from "../Images/games.jpeg.jpg";
 import arImage from "../Images/ARImage.jpg";
 import vrImage from "../Images/vr.jpeg.jpg";
 
 const ARVRPage = () => {
   const [isVisible, setIsVisible] = useState(false);
   const navigation = useNavigate();
+
+  // Check login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem("isLoggedIn");
+    setIsLoggedIn(!!userLoggedIn);
+  }, []);
 
   // Function to handle the download
   const handleDownload = () => {
@@ -25,24 +32,41 @@ const ARVRPage = () => {
     setIsVisible(false);
   };
 
+  // Function to show the download modal for AR
+  const showARModal = () => {
+    if (!isLoggedIn) {
+      alert("Please log in to access this feature.");
+      navigation("/login", { state: { redirectTo: "AR" } });
+    } else {
+      setIsVisible(true);
+    }
+  };
+
+  // Function to handle VR access
+  const handleVRAccess = () => {
+    if (!isLoggedIn) {
+      alert("Please log in to access this feature.");
+      navigation("/login", { state: { redirectTo: "/VRBooking" } });
+    } else {
+      navigation("/VRBooking", { state: { destination: "/VRPage" } });
+    }
+  };
+
   return (
     <div className="ARVR">
       <h1 className="ARVRheading">Try These Features</h1>
       <div className="Container">
-        {/* Games Section */}
-        <div className="Games" onClick={() => navigation('/GameSelection')}>
-          <img src={gamesImage} alt="Games" />
-          <h1 className="heading">Games</h1>
-        </div>
-
         {/* AR Section */}
-        <div className="AR" onClick={() => setIsVisible(true)}>
+        <div className="AR" onClick={showARModal}>
           <img src={arImage} alt="AR" />
           <h1 className="heading">AR</h1>
+          <div className="ARInfo">
+            <p>Experience the wonders of Augmented Reality with our app. Explore historical landmarks and cultural artifacts in an immersive and interactive way!</p>
+          </div>
         </div>
 
         {/* VR Section */}
-        <div className="VR" onClick={() => navigation('/VRBooking')}>
+        <div className="VR" onClick={handleVRAccess}>
           <img src={vrImage} alt="VR" />
           <h1 className="heading">VR</h1>
         </div>

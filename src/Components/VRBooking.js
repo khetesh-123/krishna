@@ -90,7 +90,7 @@ const VRBooking = () => {
           {isPopupVisible && (
             <div className="popup">
               <div className="popup-content">
-                <span className="popup-icon">✔️</span>
+                <span className="popup-icon">✔</span>
                 <p>Booking Confirmed!</p>
               </div>
             </div>
